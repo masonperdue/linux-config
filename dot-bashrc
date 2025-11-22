@@ -191,6 +191,7 @@ updateDebian(){
 	yes | sudo apt upgrade
 	yes | sudo apt autoremove --purge
 
+	echo ""
 	echo "Linking Bashrc"
 	cd
 	rm -rf ~/.bashrc ~/linux-config
