@@ -193,8 +193,8 @@ updateDebian(){
 
 	echo "Linking Bashrc"
 	cd
+	rm -rf ~/.bashrc ~/linux-config
 	git clone https://github.com/masonperdue/linux-config.git
-	rm ~/.bashrc
 	ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
 
 	echo ""
