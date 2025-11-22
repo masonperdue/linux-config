@@ -145,10 +145,14 @@ setupDebian(){
 	if [ "$input" == "y" ]; then
 		echo "Configuring Firewall"
 		sudo systemctl enable --now firewalld.service
+		sudo systemctl status firewalld.service
+		sudo firewall-cmd --set-default-zone drop
 		sudo firewall-cmd --state
 		sudo firewall-cmd --get-default-zone
 		sudo firewall-cmd --get-active-zones
 		sudo firewall-cmd --list-all
+		
+
 	echo ""
 	fi
 
