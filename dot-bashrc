@@ -130,6 +130,13 @@ setupDebian(){
 		yes | sudo apt autoremove --purge
 		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion firewalld
 		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
+
+		echo "Linking Bashrc"
+		cd
+		git clone git@github.com:masonperdue/linux-config.git
+		rm ~/.bashrc
+		ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
+		source ~/.bashrc
 	fi
 
 	# echo ""
