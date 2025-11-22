@@ -70,7 +70,7 @@ alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=temp.pd
 setupDebian(){
 	echo ""
 	echo "Updating and Installing Packages"
-	echo "Computer Name (wsl/kitcom): "
+	echo "Computer Name (wsl/kitcom/surface): "
 	read input
 	if [ "$input" == "wsl" ]; then
 		# wsl --list --online
@@ -122,18 +122,18 @@ setupDebian(){
 		# git init
 		# git log
 		# git diff
-	elif [ "$input" == "kitcom" ]; then
-		echo "Installing Packages for KitCom"
+	elif [ "$input" == "kitcom" || "$input" == "surface"]; then
+		echo "Installing Packages for KitCom or Surface"
 		yes | sudo apt update
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion firewalld
+		yes | sudo apt install vim rsync git htop tree imagemagick libimage-exiftool-perl nmap ffmpeg firewalld # curl usbutils man-db openssh-client bash-completion
 		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
 
 		echo "Linking Bashrc"
 		cd
-		git clone git@github.com:masonperdue/linux-config.git
+		git clone https://github.com/masonperdue/linux-config.git
 		rm ~/.bashrc
 		ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
 		source ~/.bashrc
