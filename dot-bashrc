@@ -1,14 +1,23 @@
 # ~/.bashrc
 
 # Surface
-	# Shutdown then tap power button while volume up button
+	# Shutdown then tap power button while holding volume up button to enter BIOS
     # Security > Secure Boot > Change configuration > None
     # Boot configuration > Configure boot device order > drag "USB Storage" to top
     # Plug in bootable USB
     # Exit > Restart now
 # sudo dd bs=4M if=debian-*-amd64-netinst.iso of=/dev/disk/by-id/usb-_USB_DISK_3.0_*-0:0 conv=fsync oflag=direct status=progress
-# cd && sudo apt update && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
 # domain name: debian.local
+# kitcom/surface, Family, family
+# WSL
+	# wsl --list --online
+	# wsl --update
+	# wsl --install Debian
+		# set username and password
+	# wsl --shutdown
+	# wsl --unregister Debian
+# cd && sudo apt update && sudo apt upgrade -y && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
+# echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 
 # If not running interactively, don't do anything
 case $- in
@@ -24,8 +33,7 @@ HISTFILESIZE=2000
 shopt -s checkwinsize
 shopt -s autocd
 
-# Change Bash Prompt
-# https://bash-prompt-generator.org/
+# Change Bash Prompt - https://bash-prompt-generator.org/
 PROMPT_COMMAND='
   GIT_BRANCH=$(git branch --show-current 2>/dev/null)
   GIT_STATUS=$(git status --short 2>/dev/null)
@@ -60,11 +68,11 @@ alias cb='cd -'
 alias mkdir='mkdir -p'
 alias tree='tree -alC --dirsfirst'
 alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
-# alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
 alias countFiles='ls -1A | wc -l'
-# alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
-alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=temp.pdf *'
+alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=out.pdf *'
 # alias jrnl='~/vim-journal/jrnl.sh'
+# alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+# alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
 # Functions
 setupDebian(){
@@ -73,29 +81,22 @@ setupDebian(){
 	echo "Computer Name (wsl/kitcom/surface): "
 	read input
 	if [ "$input" == "wsl" ]; then
-		# wsl --list --online
-		# wsl --update
-		# wsl --install Debian
-			# set username and password
-		# wsl --shutdown
-		# wsl --unregister Debian
 		echo "Installing Packages for WSL"
-		yes | sudo apt update
-		yes | sudo apt upgrade
-		yes | sudo apt remove --purge vim-common vim-tiny
-		yes | sudo apt autoremove --purge
-		yes | sudo apt install curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client # gcc gdb gnugo gnuchess default-jdk octave
+		sudo apt update -y
+		sudo apt upgrade -y
+		sudo apt remove --purge -y vim-common vim-tiny
+		sudo apt autoremove --purge -y
+		sudo apt install -y curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client # gcc gdb gnugo gnuchess default-jdk octave
 		# curl -fsSL https://install.julialang.org | sh
-		# echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 
 		echo ""
 		echo "Configuring Git"
-		# echo "Using: /home/$USER/.ssh/id_ed25519.pub"
-		# echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+masonperdue@users.noreply.github.com' or 'gpg --full-generate-key' (4 then 4096) and 'gpg --list-secret-keys' and 'gpg --armor --export [ID]' and 'git config --global user.signingkey [id]' and add 'pinentry-program "/mnt/c/Program Files/Git/usr/bin/pinentry.exe"' to '~/.gnupg/gpg-agent.conf'"
 		# echo "Configure Git w/ SSH (y/n): "
 		# read input
 		# if [ "$input" == "y" ]; then
-		# 	sudo chmod 700 ~/.ssh/id*
+			# echo "Using: /home/$USER/.ssh/id_ed25519.pub"
+			# echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+masonperdue@users.noreply.github.com' or 'gpg --full-generate-key' (4 then 4096) and 'gpg --list-secret-keys' and 'gpg --armor --export [ID]' and 'git config --global user.signingkey [id]' and add 'pinentry-program "/mnt/c/Program Files/Git/usr/bin/pinentry.exe"' to '~/.gnupg/gpg-agent.conf'"
+			# sudo chmod 700 ~/.ssh/id*
 			git config --global user.name masonperdue
 			git config --global user.email 220426478+masonperdue@users.noreply.github.com
 			# git config --global user.signingkey /home/$USER/.ssh/id_ed25519.pub
@@ -103,18 +104,18 @@ setupDebian(){
 			git config --global init.defaultBranch main
 			git config --global commit.gpgsign true
 			# git config --global gpg.format ssh
-		# 	echo "Linking Bashrc"
+			# echo "Linking Bashrc"
+			# cd
+			# git clone git@github.com:masonperdue/linux-config.git
+			# rm ~/.bashrc
+			# ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
+			# source ~/.bashrc
+		# elif [ "$input" == "n" ]; then
 		# 	cd
-		# 	git clone git@github.com:masonperdue/linux-config.git
+		# 	git clone https://github.com/masonperdue/linux-config.git
 		# 	rm ~/.bashrc
 		# 	ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
 		# 	source ~/.bashrc
-		# elif [ "$input" == "n" ]; then
-			cd
-			git clone https://github.com/masonperdue/linux-config.git
-			rm ~/.bashrc
-			ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
-			source ~/.bashrc
 		# fi
 		# ssh -T git@github.com
 		# git remote add origin git@github.com:masonperdue/repo.git
@@ -124,11 +125,11 @@ setupDebian(){
 		# git diff
 	elif [ "$input" == "kitcom" ] || [ "$input" == "surface" ]; then
 		echo "Installing Packages for KitCom or Surface"
-		yes | sudo apt update
-		yes | sudo apt upgrade
-		yes | sudo apt remove --purge vim-common vim-tiny
-		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim rsync git htop tree imagemagick libimage-exiftool-perl nmap ffmpeg firewalld # curl usbutils man-db openssh-client bash-completion
+		sudo apt update
+		sudo apt upgrade
+		sudo apt remove --purge vim-common vim-tiny
+		sudo apt autoremove --purge
+		sudo apt install vim rsync git htop tree imagemagick libimage-exiftool-perl nmap ffmpeg firewalld # curl usbutils man-db openssh-client bash-completion
 		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
 
 		echo "Linking Bashrc"
@@ -151,8 +152,6 @@ setupDebian(){
 		sudo firewall-cmd --get-default-zone
 		sudo firewall-cmd --get-active-zones
 		sudo firewall-cmd --list-all
-		
-
 	echo ""
 	fi
 
@@ -171,7 +170,7 @@ setupDebian(){
 	# read input
 	# if [ "$input" == "y" ]; then
 	# 	echo "Configuring Latexmk"
-	# 	yes | sudo apt install evince
+	# 	sudo apt install -y evince
 	# 	touch ~/.latexmk
 	# 	echo '$pdf_previewer = "start evince";' > ~/.latexmk
 	# fi
@@ -181,7 +180,7 @@ setupDebian(){
 	# read input
 	# if [ "$input" == "y" ]; then
 	# 	echo "Installing Openssh Server"
-	# 	sudo apt install openssh-server
+	# 	sudo apt install -y openssh-server
 	# 	echo "Run: sudoedit /etc/ssh/sshd.config"
 	# 	echo "Set: Port 7530"
 	# 	echo "Set: PermitRootLogin no"
@@ -191,9 +190,9 @@ setupDebian(){
 updateDebian(){
 	echo ""
 	echo "Updating Packages"
-	yes | sudo apt update
-	yes | sudo apt upgrade
-	yes | sudo apt autoremove --purge
+	sudo apt update -y
+	sudo apt upgrade -y
+	sudo apt autoremove -y --purge
 
 	echo ""
 	echo "Linking Bashrc"
@@ -212,9 +211,9 @@ updateDebian(){
 updateWSL(){
 	echo ""
 	echo "Updating Packages"
-	yes | sudo apt update
-	yes | sudo apt upgrade
-	yes | sudo apt autoremove --purge
+	sudo apt update -y
+	sudo apt upgrade -y
+	sudo apt autoremove -y --purge
 
 	echo ""
 	echo "Sourcing ~/.bashrc"
