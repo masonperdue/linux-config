@@ -139,6 +139,19 @@ setupDebian(){
 		source ~/.bashrc
 	fi
 
+	echo ""
+	echo "Configure Firewall (y/n): "
+	read input
+	if [ "$input" == "y" ]; then
+		echo "Configuring Firewall"
+		sudo systemctl enable --now firewalld.service
+		sudo firewall-cmd --state
+		sudo firewall-cmd --get-default-zone
+		sudo firewall-cmd --get-active-zones
+		sudo firewall-cmd --list-all
+	echo ""
+	fi
+
 	# echo ""
 	# echo "Configure Vim-Journal (y/n): "
 	# read input
@@ -169,22 +182,29 @@ setupDebian(){
 	# 	echo "Set: Port 7530"
 	# 	echo "Set: PermitRootLogin no"
 	# fi
-
-	echo ""
-	echo "Configure Firewall (y/n): "
-	read input
-	if [ "$input" == "y" ]; then
-		echo "Configuring Firewall"
-		sudo systemctl enable --now firewalld.service
-		sudo firewall-cmd --state
-		sudo firewall-cmd --get-default-zone
-		sudo firewall-cmd --get-active-zones
-		sudo firewall-cmd --list-all
-	echo ""
-	fi
 }
 
 updateDebian(){
+	echo ""
+	echo "Updating Packages"
+	yes | sudo apt update
+	yes | sudo apt upgrade
+	yes | sudo apt autoremove --purge
+
+	echo "Linking Bashrc"
+	cd
+	git clone https://github.com/masonperdue/linux-config.git
+	rm ~/.bashrc
+	ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
+
+	echo ""
+	echo "Sourcing ~/.bashrc"
+	source ~/.bashrc
+
+	echo ""
+}
+
+updateWSL(){
 	echo ""
 	echo "Updating Packages"
 	yes | sudo apt update
