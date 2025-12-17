@@ -19,6 +19,8 @@
 # cd && sudo apt update && sudo apt upgrade -y && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
 # echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 
+# HP Desktop Server: 192.168.0.207 - sudo apt update && sudo apt install -y openssh-server && sudoedit /etc/ssh/sshd_config (Port 51638 & PermitRootLogin No) && supo systemctl reload sshd.service && ip a - add fail to ban, pub keys, timeout, attempts
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
