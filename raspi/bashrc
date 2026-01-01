@@ -48,7 +48,7 @@ alias cu='cd ..'
 alias cb='cd -'
 alias mkdir='mkdir -p'
 alias tree='tree -alC --dirsfirst'
-alias updateDNS='cd ~/unbound/ && ./restart.sh && cd -'
+# alias updateDNS='cd ~/unbound/ && ./restart.sh && cd -'
 
 # Functions
 updateDebian(){
@@ -58,11 +58,11 @@ updateDebian(){
         sudo apt upgrade -y
         sudo apt autoremove -y --purge
 
-        # echo ""
-        # echo "Updating Bashrc"
-        # cd
-        # rm -rf ~/.bashrc
-        # curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc
+        echo ""
+        echo "Updating Bashrc"
+        cd
+        rm -rf ~/.bashrc
+        curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/raspi/bashr
 
         echo ""
         echo "Sourcing ~/.bashrc"
