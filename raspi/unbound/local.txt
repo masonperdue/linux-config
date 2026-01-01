@@ -1,0 +1,3 @@
+192.168.50.30 printer.local
+192.168.50.1 router.local
+192.168.50.20 raspi.local
