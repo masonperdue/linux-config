@@ -62,97 +62,25 @@
         # podman stop -l
         # podman rm -l
         # podman rmi --force 0722b3b8664e
-    # unbound
+    # unbound + pi-hole + dns network
         podman pull debian:latest
         podman images
         mkdir ~/unbound
-        cd ~/unbound
-        vim Containerfile
-        vim custom.conf
+        mv {Containerfile,custom.conf} ~/unbound/
         podman build -t my-unbound .
-        sudoedit /etc/sysctl.d/custom.conf
+        mv custom.conf /etc/sysctl.d/custom.conf
         sudo sysctl -p
-        podman run -d --name unbound-dns -p 5335:5335/udp -p 5335:5335/tcp my-unbound
+        # podman run -d --name unbound-dns -p 5335:5335/udp -p 5335:5335/tcp my-unbound
         mkdir ~/.config/containers/systemd
-        vim ~/.config/containers/systemd/unbound.container
-        loginctl enable-liner masonp
+        mv {dns.network,pi-hole.container,unbound.container} ~/.config/containers/systemd
+        loginctl enable-linger masonp
         systemctl --user daemon-reload
-        systemctl --user cat unbound
+        # systemctl --user cat unbound
         systemctl --user start unbound
-        dig google.com @127.0.0.1#5335
-    # pi-hole
-        vim ~/.config/container/systemd/pi-hole.container
-    # dns network
-        vim ~/.config/container/systemd/dns.network
-        systemctl --user daemon-reload
+        systemctl --user start pi-hole
+        # dig google.com @127.0.0.1#5335
+    # miniflux
         
-
-# # Unbound
-#     # Setup
-#         sudo apt update
-#         sudo apt install unbound
-#         unbound -V  # should display version number
-#         sudo systemctl edit unbound.service
-#             [Service]
-#             ExecStartPre=timeout 60s sh -c 'until ping -c1 192.168.50.1; do sleep 1; done;'
-#         sudo systemctl cat unbound.service
-#         sudo systemctl daemon-reload
-#         sudo systemctl restart unbound.service
-#         sudo systemctl status unbound.service
-#         sudo touch /var/log/unbound.log
-#         sudo chown unbound:unbound /var/log/unbound.log
-#         sudo touch /etc/unbound/unbound.conf.d/custom.conf
-#         sudoedit /etc/unbound/unbound.conf.d/custom.conf
-#         unbound-checkconf /etc/unbound/unbound.conf.d/custom.conf
-#         sudo unbound-control reload
-#         # unbound -d -vv -c unbound.conf
-#         # tail /var/log/unbound.log
-#         sudo systemctl status unbound.service
-#         sudo apt install dnsutils
-#         dig google.com @127.0.0.1
-#     # Filtering
-#         mkdir ~/unbound/{conf,hosts} && cd ~/unbound
-#         mkdir ~/unbound/{allow,block,local}.txt
-#         sudo mkdir /etc/unbound/unbound.conf.d/custom.conf.d
-#         sudo ln -s /home/masonp/unbound/conf/block.conf /etc/unbound/unbound.conf.d/custom.conf.d/block.conf
-#         sudo ln -s /home/masonp/unbound/conf/safe.conf /etc/unbound/unbound.conf.d/custom.conf.d/safe.conf
-#         sudo ln -s /home/masonp/unbound/conf/allow.conf /etc/unbound/unbound.conf.d/custom.conf.d/allow.conf
-#         sudo ln -s /home/masonp/unbound/conf/local.conf /etc/unbound/unbound.conf.d/custom.conf.d/local.conf
-#         touch ~/unbound/refresh.sh
-#         chmod +x ~/unbound/refresh.sh
-#         vim ~/unbound/refresh.sh
-#         touch /home/masonp/unbound/conf/safe.conf
-#         crontab -e
-#             0 5 * * * bash /home/masonp/unbound/refresh.sh
-#         # echo "<domain>" >> block.txt  # or allow or local
-#         # scp -r -P 7583 masonp@192.168.50.20:/home/masonp/unbound unbound
-
-# # Miniflux
-#     sudo apt install postgresql
-#     sudo -u postgres -i
-#     # createuser -P miniflux
-#         # enter password
-#     # createdb -O miniflux miniflux2
-#     createdb miniflux2
-#     psql
-#     ALTER USER postgres WITH PASSWORD 'postgres';
-#     \q
-#     exit
-#     sudo apt install miniflux
-#         # yes
-#         # masonp
-#         # # enter password
-#         # yes
-#         # localhost
-#         # # enter password
-#         no
-#         no
-#     sudoedit /etc/miniflux/miniflux.conf
-#         # remove all lines
-#     sudo rm /etc/miniflux/database
-#     miniflux -migrate -config-file /etc/miniflux/miniflux.conf
-#     miniflux -create-admin -config-file /etc/miniflux/miniflux.conf
-#         # enter username and password
 
 # # FirewallD
 #     sudo apt install -y firewalld
