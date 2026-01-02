@@ -45,7 +45,7 @@
         source ~/.bashrc
         sudo apt purge -y vim-common vim-tiny
         sudo apt autoremove --purge -y
-        sudo apt install -y vim tree sane-utils nmap unattended-upgrades
+        sudo apt install -y vim tree sane-utils nmap unattended-upgrades dnsutils
         sudo dpkg-reconfigure unattended-upgrades
             # yes
         ss -tuln
@@ -79,8 +79,12 @@
         systemctl --user daemon-reload
         systemctl --user cat unbound
         systemctl --user start unbound
+        dig google.com @127.0.0.1#5335
     # pi-hole
         vim ~/.config/container/systemd/pi-hole.container
+    # dns network
+        vim ~/.config/container/systemd/dns.network
+        systemctl --user daemon-reload
         
 
 # # Unbound
