@@ -80,6 +80,7 @@
         systemctl --user cat unbound
         systemctl --user start unbound
     # pi-hole
+        vim ~/.config/container/systemd/pi-hole.container
         
 
 # # Unbound
