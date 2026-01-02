@@ -1,0 +1,14 @@
+[Unit]
+Description=Postgres Container
+After=network-online.target
+
+[Container]
+Image=docker.io/library/postgres:latest
+Environment=POSTGRES_USER=miniflux
+Environment=POSTGRES_PASSWORD=OrangeDoor05
+Environment=POSTGRES_DB=miniflux
+Volume=miniflux-db.volume:/var/lib/postgresql
+Network=rss.network:ip=192.168.40.40
+
+[Install]
+WantedBy=default.target

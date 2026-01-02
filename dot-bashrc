@@ -88,7 +88,7 @@ setupDebian(){
 		sudo apt upgrade -y
 		sudo apt remove --purge -y vim-common vim-tiny
 		sudo apt autoremove --purge -y
-		sudo apt install -y curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client # gcc gdb gnugo gnuchess default-jdk octave
+		sudo apt install -y curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client dnsutils # gcc gdb gnugo gnuchess default-jdk octave
 		# curl -fsSL https://install.julialang.org | sh
 
 		echo ""

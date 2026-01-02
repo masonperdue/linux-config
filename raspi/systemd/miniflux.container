@@ -1,0 +1,17 @@
+[Unit]
+Description=Miniflux Container
+Wants=postgres.service
+After=postgres.service
+
+[Container]
+Image=docker.io/miniflux/miniflux:latest
+PublishPort=8080:8080/tcp
+Environment=DATABASE_URL=postgres://miniflux:OrangeDoor05@192.168.40.40/miniflux?sslmode=disable
+Environment=RUN_MIGRATIONS=1
+Environment=CREATE_ADMIN=1
+Environment=ADMIN_USERNAME=masonp
+Environment=ADMIN_PASSWORD=OrangeDoor05
+Network=rss.network:ip=192.168.40.41
+
+[Install]
+WantedBy=default.target

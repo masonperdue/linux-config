@@ -80,7 +80,12 @@
         systemctl --user start pi-hole
         # dig google.com @127.0.0.1#5335
     # miniflux
-        
+        mv {{miniflux,postgres}.container,rss.network,miniflux-db.volume} ~/.config/containers/systemd
+        systemctl --user daemon-reload
+        systemctl --user start postgres.service
+        systemctl --user start miniflux.service
+        # paste custom css in settings
+    
 
 # # FirewallD
 #     sudo apt install -y firewalld
