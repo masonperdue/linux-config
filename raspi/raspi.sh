@@ -33,18 +33,54 @@
             # change to "X11Forwarding no"
             # add "AllowUsers masonp"
         # sudo systemctl list-units --type=service
-        sudo systemctl disable --now bluetooth.service
-        sudo mv /etc/motd /etc/motd.back          
+        sudo systemctl disable --now {bluetooth,avahi-daemon}.service
+        sudo systemctl disable --now avahi-daemon.socket
+        sudo systemctl mask {bluetooth,avahi-daemon}.service
+        sudo systemctl mask avahi-daemon.socket
+        sudo rm /etc/motd         
         sudo reboot now
     # ssh masonp@192.168.50.20 -p 7583
         rm ~/.bashrc
-        curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc
-        source .bashrc
+        curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/raspi/bashrc
+        source ~/.bashrc
         sudo apt purge -y vim-common vim-tiny
         sudo apt autoremove --purge -y
-        sudo apt install -y vim tree sane-utils nmap  unattended-upgrades
+        sudo apt install -y vim tree sane-utils nmap unattended-upgrades
         sudo dpkg-reconfigure unattended-upgrades
-        # ss -tuln  # view open ports
+            # yes
+        ss -tuln
+
+# Podman
+    sudo apt install -y podman crun
+    # httpd test
+        # pudman pull docker.io/library/httpd
+        # podman images
+        # podman run -d -p 8080:80/tcp docker.io/library/httpd
+        # podman ps -a
+        # # http://192.168.50.20:8080/
+        # podman logs -l
+        # podman stop -l
+        # podman rm -l
+        # podman rmi --force 0722b3b8664e
+    # unbound
+        podman pull debian:latest
+        podman images
+        mkdir ~/unbound
+        cd ~/unbound
+        vim Containerfile
+        vim custom.conf
+        podman build -t my-unbound .
+        sudoedit /etc/sysctl.d/custom.conf
+        sudo sysctl -p
+        podman run -d --name unbound-dns -p 5335:5335/udp -p 5335:5335/tcp my-unbound
+        mkdir ~/.config/containers/systemd
+        vim ~/.config/containers/systemd/unbound.container
+        loginctl enable-liner masonp
+        systemctl --user daemon-reload
+        systemctl --user cat unbound
+        systemctl --user start unbound
+    # pi-hole
+        
 
 # # Unbound
 #     # Setup
@@ -125,6 +161,3 @@
 #     sudo firewall-cmd --get-default-zone
 #     sudo firewall-cmd --get-active-zones
 #     sudo firewall-cmd --list-all
-
-# Podman
-    
