@@ -1,0 +1,4 @@
+[Build]
+ImageTag=my-joplin
+SetWorkingDirectory=/home/masonp/joplin
+Pull=newer

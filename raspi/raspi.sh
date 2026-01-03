@@ -78,8 +78,18 @@
         mkdir ~/httpd
         mv httpd.container ~/.config/containers/systemd/
     # WebDAV (for Joplin Sync)
-        
-        sudo systemctl enable --now firewalld.service
+        mkdir ~/joplin/notes
+        cd ~/joplin
+        sudo apt install apache2 -y
+        htpasswd -c .htpasswd masonp    
+            # enter password
+        sudo apt purge apache2 -y && sudo apt autoremove --purge -y
+        mv {Containerfile,webdav.conf} ~/joplin/
+        mv {joplin.container,my-joplin.build} ~/.config/containers/systemd/
+        systemctl --user daemon-reload
+        systemctl --user start joplin.service
+        # podman exec -it systemd-joplin bash
+        # http://192.168.50.20:8888/webdav
 
 
 # Firewalld
@@ -92,6 +102,7 @@
     sudo firewall-cmd --zone=drop --add-port=80/tcp     # httpd
     sudo firewall-cmd --zone=drop --add-port=443/tcp    # pi-hole admin
     sudo firewall-cmd --zone=drop --add-port=8080/tcp   # miniflux
+    sudo firewall-cmd --zone=drop --add-port=8888/tcp   # joplin webdav
     sudo firewall-cmd --state
     sudo firewall-cmd --get-default-zone
     sudo firewall-cmd --get-active-zones

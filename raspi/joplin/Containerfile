@@ -1,0 +1,14 @@
+FROM docker.io/library/httpd:latest
+
+RUN mkdir -p /usr/local/apache2/var/ /usr/local/apache2/webdav/ && \
+    chown -R www-data:www-data /usr/local/apache2/var/ /usr/local/apache2/webdav/
+
+RUN sed -i \
+    -e 's/^#LoadModule dav_module/LoadModule dav_module/' \
+    -e 's/^#LoadModule dav_fs_module/LoadModule dav_fs_module/' \
+    -e 's/^#LoadModule dav_lock_module/LoadModule dav_lock_module/' \
+    -e 's/^#LoadModule auth_digest_module/LoadModule auth_digest_module/' \
+    conf/httpd.conf
+
+COPY webdav.conf /usr/local/apache2/conf/extra/httpd-webdav.conf
+RUN echo "Include conf/extra/httpd-webdav.conf" >> /usr/local/apache2/conf/httpd.conf

@@ -1,0 +1,15 @@
+[Unit]
+Description=Joplin WebDAV Server
+After=network-online.target
+
+[Container]
+Image=my-joplin.build
+PublishPort=8888:80
+Volume=/home/masonp/joplin/notes/:/usr/local/apache2/webdav/
+Volume=/home/masonp/joplin/.htpasswd:/usr/local/apache2/conf/.htpasswd
+
+[Service]
+ExecStartPost=/usr/bin/podman exec -u root systemd-joplin chown -R www-data:www-data /usr/local/apache2/webdav /usr/local/apache2/var
+
+[Install]
+WantedBy=default.target
