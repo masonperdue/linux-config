@@ -1,0 +1,11 @@
+[Unit]
+Description=HTTPd Container
+After=network-online.target
+
+[Container]
+Image=docker.io/library/httpd:latest
+PublishPort=80:80/tcp
+Volume=/home/masonp/httpd/:/usr/local/apache2/htdocs
+
+[Install]
+WantedBy=default.target
