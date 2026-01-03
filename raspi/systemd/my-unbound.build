@@ -1,0 +1,4 @@
+[Build]
+ImageTag=my-unbound
+SetWorkingDirectory=/home/masonp/unbound/
+Pull=newer

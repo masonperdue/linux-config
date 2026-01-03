@@ -50,9 +50,6 @@
 
 # Podman
     sudo apt install -y podman crun
-    # httpd
-        mkdir ~/httpd
-        mv httpd.container ~/.config/containers/systemd/
     # unbound + pi-hole + dns network
         podman pull debian:latest
         podman images
@@ -66,6 +63,7 @@
         mv {dns.network,pi-hole.container,unbound.container} ~/.config/containers/systemd
         loginctl enable-linger masonp
         systemctl --user daemon-reload
+        systemctl --user enable --now podman-auto-update.timer
         # systemctl --user cat unbound
         systemctl --user start unbound
         systemctl --user start pi-hole
@@ -76,9 +74,9 @@
         systemctl --user start postgres.service
         systemctl --user start miniflux.service
         # paste custom css in settings
-    # update script
-        mv updateImages.sh ~/.config/
-        chmod +x ~/.config/updateImages.sh
+    # httpd
+        mkdir ~/httpd
+        mv httpd.container ~/.config/containers/systemd/
     # WebDAV (for Joplin Sync)
         
         sudo systemctl enable --now firewalld.service

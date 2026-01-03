@@ -7,6 +7,7 @@ Image=docker.io/library/httpd:latest
 PublishPort=80:80/tcp
 Volume=/home/masonp/httpd/:/usr/local/apache2/htdocs
 Network=proxy.network:ip=192.168.40.4
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target

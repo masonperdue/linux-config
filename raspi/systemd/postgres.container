@@ -9,6 +9,7 @@ Environment=POSTGRES_PASSWORD=OrangeDoor05
 Environment=POSTGRES_DB=miniflux
 Volume=miniflux-db.volume:/var/lib/postgresql
 Network=proxy.network:ip=192.168.40.5
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target

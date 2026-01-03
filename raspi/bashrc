@@ -48,7 +48,6 @@ alias cu='cd ..'
 alias cb='cd -'
 alias mkdir='mkdir -p'
 alias tree='tree -alC --dirsfirst'
-alias updateImages='cd ~/.config && ./updateImages.sh'
 
 # Functions
 updateDebian(){

@@ -14,6 +14,7 @@ Environment=FTLCONF_dns_listeningMode=ALL
 Volume=/home/masonp/pi-hole/etc-pihole:/etc/pihole
 Network=proxy.network:ip=192.168.40.3
 AddCapability=SYS_NICE
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target

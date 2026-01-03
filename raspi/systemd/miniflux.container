@@ -12,6 +12,7 @@ Environment=CREATE_ADMIN=1
 Environment=ADMIN_USERNAME=masonp
 Environment=ADMIN_PASSWORD=OrangeDoor05
 Network=proxy.network:ip=192.168.40.6
+AutoUpdate=registry
 
 [Install]
 WantedBy=default.target
