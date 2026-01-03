@@ -1,4 +1,4 @@
 [Network]
-Label=app=rss
+Label=app=proxy
 Subnet=192.168.40.0/24
 Gateway=192.168.40.1

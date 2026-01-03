@@ -79,9 +79,9 @@
     # update script
         mv updateImages.sh ~/.config/
         chmod +x ~/.config/updateImages.sh
-    # # SearXNG
-    #     mkdir ~/searxng/{etc-searxng,data}
-    #     mv searxng.container ~/.config/containers/systemd/
+    # WebDAV (for Joplin Sync)
+        
+        sudo systemctl enable --now firewalld.service
 
 
 # Firewalld

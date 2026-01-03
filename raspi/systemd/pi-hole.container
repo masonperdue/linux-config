@@ -12,7 +12,7 @@ Environment=TZ=America/Los_Angeles
 Environment=FTLCONF_webserver_api_password=OrangeDoor#05
 Environment=FTLCONF_dns_listeningMode=ALL
 Volume=/home/masonp/pi-hole/etc-pihole:/etc/pihole
-Network=dns.network:ip=192.168.30.21
+Network=proxy.network:ip=192.168.40.3
 AddCapability=SYS_NICE
 
 [Install]

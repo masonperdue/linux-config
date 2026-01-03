@@ -4,9 +4,7 @@ After=network-online.target
 
 [Container]
 Image=my-unbound
-PublishPort=5335:5335/udp
-PublishPort=5335:5335/tcp
-Network=dns.network:ip=192.168.30.20
+Network=proxy.network:ip=192.168.40.2
 
 [Install]
 WantedBy=default.target
