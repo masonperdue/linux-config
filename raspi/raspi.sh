@@ -74,19 +74,6 @@
         systemctl --user start postgres.service
         systemctl --user start miniflux.service
         # paste custom css in settings
-    # WebDAV (for Joplin Sync)
-        mkdir ~/joplin/notes
-        cd ~/joplin
-        sudo apt install apache2 -y
-        htpasswd -c .htpasswd masonp    
-            # enter password
-        sudo apt purge apache2 -y && sudo apt autoremove --purge -y
-        mv {Containerfile,webdav.conf} ~/joplin/
-        mv {joplin.container,my-joplin.build} ~/.config/containers/systemd/
-        systemctl --user daemon-reload
-        systemctl --user start joplin.service
-        # podman exec -it systemd-joplin bash
-        # http://192.168.50.20:8888/webdav
     # Caddy
         mkdir ~/caddy
         mkdir ~/caddy/{http,caddy_config,caddy_data}
