@@ -74,9 +74,6 @@
         systemctl --user start postgres.service
         systemctl --user start miniflux.service
         # paste custom css in settings
-    # httpd
-        mkdir ~/httpd
-        mv httpd.container ~/.config/containers/systemd/
     # WebDAV (for Joplin Sync)
         mkdir ~/joplin/notes
         cd ~/joplin
@@ -90,7 +87,13 @@
         systemctl --user start joplin.service
         # podman exec -it systemd-joplin bash
         # http://192.168.50.20:8888/webdav
-
+    # Caddy
+        mkdir ~/caddy
+        mkdir ~/caddy/{http,caddy_config,caddy_data}
+        vim ~/caddy/Caddyfile
+        mv caddy.container ~/.config/containers/systemd/
+        systemctl --user daemon-reload
+        systemctl --user start caddy.service
 
 # Firewalld
     sudo apt install -y firewalld

@@ -5,7 +5,6 @@ After=postgres.service
 
 [Container]
 Image=docker.io/miniflux/miniflux:latest
-PublishPort=8080:8080/tcp
 Environment=DATABASE_URL=postgres://miniflux:OrangeDoor05@192.168.40.5/miniflux?sslmode=disable
 Environment=RUN_MIGRATIONS=1
 Environment=CREATE_ADMIN=1

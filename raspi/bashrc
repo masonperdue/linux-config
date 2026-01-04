@@ -78,7 +78,7 @@ myNmap(){
 docScan(){
         # documents should be face down and upside down
         if [ -n "$1" ]; then
-                cd ~/httpd/scan
+                cd ~/caddy/http/scan
                 mkdir tmp
                 cd tmp
                 sudo scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
