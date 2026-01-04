@@ -6,5 +6,9 @@ After=network-online.target
 Image=my-unbound.build
 Network=proxy.network:ip=192.168.40.2
 
+[Service]
+Restart=always
+RestartSec=1s
+
 [Install]
 WantedBy=default.target

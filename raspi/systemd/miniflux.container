@@ -13,5 +13,9 @@ Environment=ADMIN_PASSWORD=OrangeDoor05
 Network=proxy.network:ip=192.168.40.6
 AutoUpdate=registry
 
+[Service]
+Restart=always
+RestartSec=1s
+
 [Install]
 WantedBy=default.target

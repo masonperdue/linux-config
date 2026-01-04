@@ -15,5 +15,9 @@ Network=proxy.network:ip=192.168.40.3
 AddCapability=SYS_NICE
 AutoUpdate=registry
 
+[Service]
+Restart=always
+RestartSec=1s
+
 [Install]
 WantedBy=default.target

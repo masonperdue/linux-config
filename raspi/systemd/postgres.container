@@ -11,5 +11,9 @@ Volume=miniflux-db.volume:/var/lib/postgresql
 Network=proxy.network:ip=192.168.40.5
 AutoUpdate=registry
 
+[Service]
+Restart=always
+RestartSec=1s
+
 [Install]
 WantedBy=default.target
