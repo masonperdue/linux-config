@@ -81,6 +81,13 @@
         mv caddy.container ~/.config/containers/systemd/
         systemctl --user daemon-reload
         systemctl --user start caddy.service
+    # Set raspi dns to cloudflare (so images can update w/o servers running)
+        nmcli connection show
+        sudo nmcli con mod netplan-eth0 ipv4.dns 1.1.1.1
+        sudo nmcli con mod netplan-eth0 ipv4.ignore-auto-dns yes
+        sudo nmcli con up netplan-eth0
+        nmcli dev show
+        dig startpage.com
 
 # Firewalld
     sudo apt install -y firewalld
