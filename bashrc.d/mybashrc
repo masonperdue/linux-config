@@ -1,38 +1,4 @@
-# ~/.bashrc
-
-# Surface
-        # Shutdown then tap power button while holding volume up button to enter BIOS
-    # Security > Secure Boot > Change configuration > None
-    # Boot configuration > Configure boot device order > drag "USB Storage" to top
-    # Plug in bootable USB
-    # Exit > Restart now
-# sudo dd bs=4M if=debian-*-amd64-netinst.iso of=/dev/disk/by-id/usb-_USB_DISK_3.0_*-0:0 conv=fsync oflag=direct status=progress
-# domain name: debian.local
-# kitcom/surface, Family, family
-# WSL
-        # wsl --list --online
-        # wsl --update
-        # wsl --install Debian
-                # set username and password
-        # wsl --shutdown
-        # wsl --unregister Debian
-# cd && sudo apt update && sudo apt upgrade -y && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
-# echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
-
-# HP Desktop Server: 192.168.0.207 - sudo apt update && sudo apt install -y openssh-server && sudoedit /etc/ssh/sshd_config (Port 51638 & PermitRootLogin No) && supo systemctl reload sshd.service && ip a - add fail to ban, pub keys, timeout, attempts
-
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
 # BASH Setup
-HISTCONTROL=ignoreboth
-shopt -s histappend
-HISTSIZE=1000
-HISTFILESIZE=2000
-shopt -s checkwinsize
 shopt -s autocd
 
 # Change Bash Prompt - https://bash-prompt-generator.org/
@@ -51,7 +17,7 @@ PROMPT_COMMAND='
 PS1='\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m\]\$\[\e[0m\] '
 
 # Variables
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Aliases
 alias editBash="vim ~/linux-config/dot-bashrc"
@@ -72,9 +38,9 @@ alias tree='tree -alC --dirsfirst'
 alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
 alias countFiles='ls -1A | wc -l'
 alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=out.pdf *'
+alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
 # alias jrnl='~/vim-journal/jrnl.sh'
 # alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
-# alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
 # Functions
 setupDebian(){
@@ -229,40 +195,6 @@ myNmap(){
         nmap -v -A -Pn -p 1-65535 "$1"
 }
 
-setupScan(){
-        # usdbipd.exe list
-        #ADMIN-pwsh>  usbipd bind --busid [busid]
-        # usbipd.exe attach --wsl --busid [busid]
-        # lsusb
-        # usbipd.exe detach --busid [busid]
-        usbipd.exe list
-        echo "Enter BUSID (4-3): "
-        read busid
-        usbipd.exe attach --wsl --busid $busid
-        sleep 1
-        lsusb
-        echo "Enter Dev Path (001/003): "
-        read devPath
-        sudo chown masonp:masonp /dev/bus/usb/$devPath
-}
-
-docScan(){
-        # documents should be face down and upside down
-        if [ -n "$1" ]; then
-                mkdir tmp
-                cd tmp
-                scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
-                # sudoedit /etc/ImageMagick*/policy.xml # change none to read|write for pdf and change memory to 4GiB
-                convert out*.pnm -deskew 40% -density 150 -verbose $1.pdf
-                mv $1.pdf ../
-                # rm *.pnm
-                cd ..
-                # rmdir tmp
-        else
-                echo "Error: Input file name"
-        fi
-}
-
 # mov2mp4(){
 #       for f in *.MOV; do
 #               ffmpeg -i $f $f.mp4
@@ -293,15 +225,6 @@ docScan(){
 #       fi
 # }
 
-sshKey(){
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519
-}
-
-sshRaspi(){
-    ssh masonp@192.168.50.20 -p 7583
-}
-
 gitPush(){
         if [ -n "$1" ]; then
                 git add --all
@@ -320,12 +243,3 @@ gitCommit(){
                 echo "Error: Input Commit Message"
         fi
 }
-
-# Completion
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi

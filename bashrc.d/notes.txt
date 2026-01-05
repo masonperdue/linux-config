@@ -1,0 +1,22 @@
+# Surface
+        # Shutdown then tap power button while holding volume up button to enter BIOS
+    # Security > Secure Boot > Change configuration > None
+    # Boot configuration > Configure boot device order > drag "USB Storage" to top
+    # Plug in bootable USB
+    # Exit > Restart now
+# sudo dd bs=4M if=debian-*-amd64-netinst.iso of=/dev/disk/by-id/usb-_USB_DISK_3.0_*-0:0 conv=fsync oflag=direct status=progress
+# domain name: debian.local
+# kitcom/surface, Family, family
+# WSL
+        # wsl --list --online
+        # wsl --update
+        # wsl --install Debian
+                # set username and password
+        # wsl --shutdown
+        # wsl --unregister Debian
+# cd && sudo apt update && sudo apt upgrade -y && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
+# echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
+
+# HP Desktop Server: 192.168.0.207 - sudo apt update && sudo apt install -y openssh-server && sudoedit /etc/ssh/sshd_config (Port 51638 & PermitRootLogin No) && supo systemctl reload sshd.service && ip a - add fail to ban, pub keys, timeout, attempts
+
+
