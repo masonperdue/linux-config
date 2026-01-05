@@ -225,6 +225,14 @@ myNmap(){
 #       fi
 # }
 
+gitClone(){
+    if [ -n "$1" ]; then
+        git clone git@github.com:masonperdue/"$1".git
+    else
+        echo "Error: Input Repository Name"
+    fi
+}
+
 gitPush(){
         if [ -n "$1" ]; then
                 git add --all
