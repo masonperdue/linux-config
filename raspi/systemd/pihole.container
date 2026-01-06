@@ -7,12 +7,14 @@ After=unbound.service
 Image=docker.io/pihole/pihole:latest
 PublishPort=53:53/tcp
 PublishPort=53:53/udp
+PublishPort=80:80/tcp
+PublishPort=443:443/tcp
 Environment=TZ=America/Los_Angeles
 Environment=FTLCONF_webserver_api_password=OrangeDoor#05
 Environment=FTLCONF_dns_listeningMode=ALL
 Volume=/home/masonp/pi-hole/etc-pihole:/etc/pihole
-Network=proxy.network:ip=192.168.40.3
-AddCapability=SYS_NICE
+Network=dns.network:ip=192.168.40.3
+AddCapability=CAP_SYS_NICE
 AutoUpdate=registry
 
 [Service]

@@ -4,7 +4,7 @@ After=network-online.target
 
 [Container]
 Image=my-unbound.build
-Network=proxy.network:ip=192.168.40.2
+Network=dns.network:ip=192.168.40.2
 
 [Service]
 Restart=always
