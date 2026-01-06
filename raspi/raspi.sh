@@ -60,34 +60,28 @@
         sudo sysctl -p
         # podman run -d --name unbound-dns -p 5335:5335/udp -p 5335:5335/tcp my-unbound
         mkdir ~/.config/containers/systemd
-        mv {dns.network,pi-hole.container,unbound.container} ~/.config/containers/systemd
+        mv {dns.network,pihole.container,unbound.container} ~/.config/containers/systemd
         loginctl enable-linger masonp
         systemctl --user daemon-reload
         systemctl --user enable --now podman-auto-update.timer
         # systemctl --user cat unbound
-        systemctl --user start unbound
-        systemctl --user start pi-hole
+        systemctl --user start pihole
         # dig google.com @127.0.0.1#5335
-    # miniflux
-        mv {{miniflux,postgres}.container,rss.network,miniflux-db.volume} ~/.config/containers/systemd/
-        systemctl --user daemon-reload
-        systemctl --user start postgres.service
-        systemctl --user start miniflux.service
-        # paste custom css in settings
-    # Caddy
-        mkdir ~/caddy
-        mkdir ~/caddy/{http,caddy_config,caddy_data}
-        vim ~/caddy/Caddyfile
-        mv caddy.container ~/.config/containers/systemd/
-        systemctl --user daemon-reload
-        systemctl --user start caddy.service
-    # Set raspi dns to cloudflare (so images can update w/o servers running)
+   # Set raspi dns to cloudflare (so images can update w/o servers running)
         nmcli connection show
         sudo nmcli con mod netplan-eth0 ipv4.dns 1.1.1.1
         sudo nmcli con mod netplan-eth0 ipv4.ignore-auto-dns yes
         sudo nmcli con up netplan-eth0
         nmcli dev show
         dig startpage.com
+
+# Neovim
+    sudo apt install -y git neovim
+    mkdir ~/.myconfig
+    cd ~/.myconfig
+    git clone https://github.com/masonperdue/neovim-config.git
+    cd neovim-config
+    ./setup.sh
 
 # Firewalld
     sudo apt install -y firewalld
