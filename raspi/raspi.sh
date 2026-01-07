@@ -67,6 +67,10 @@
         # systemctl --user cat unbound
         systemctl --user start pihole
         # dig google.com @127.0.0.1#5335
+        sudoedit /etc/security/limits.conf
+            # add:
+            # masonp soft nice -20
+            # masonp hard nice -20
    # Set raspi dns to cloudflare (so images can update w/o servers running)
         nmcli connection show
         sudo nmcli con mod netplan-eth0 ipv4.dns 1.1.1.1
