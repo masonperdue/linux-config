@@ -3,17 +3,16 @@ Description=Pi-Hole Container
 Wants=unbound.service
 After=unbound.service
 
+[Quadlet]
+DefaultDependencies=false
+
 [Container]
 Image=docker.io/pihole/pihole:latest
-PublishPort=53:53/tcp
-PublishPort=53:53/udp
-PublishPort=80:80/tcp
-PublishPort=443:443/tcp
 Environment=TZ=America/Los_Angeles
 Environment=FTLCONF_webserver_api_password=OrangeDoor#05
 Environment=FTLCONF_dns_listeningMode=ALL
 Volume=/home/masonp/pi-hole/etc-pihole:/etc/pihole
-Network=dns.network:ip=192.168.40.3
+Network=host
 AddCapability=CAP_SYS_NICE
 AutoUpdate=registry
 

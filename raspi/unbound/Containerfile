@@ -6,7 +6,7 @@ ENV LANG en_US.utf8
 RUN apt-get update && apt-get install -y unbound unbound-anchor unbound-host dns-root-data
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /var/lib/unbound && cp /usr/share/dns/root.key /var/lib/unbound/root.key
+RUN mkdir -p /var/lib/unbound && cp /usr/share/dns/root.key /var/lib/unbound/root.key 
 
 COPY custom.conf /etc/unbound/unbound.conf.d/custom.conf
 

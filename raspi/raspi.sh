@@ -90,8 +90,8 @@
     sudo firewall-cmd --zone=drop --add-port=7583/tcp   # ssh
     sudo firewall-cmd --zone=drop --add-port=53/tcp     # pi-hole dns
     sudo firewall-cmd --zone=drop --add-port=53/udp     # pi-hole dns
-    sudo firewall-cmd --zone=drop --add-port=80/tcp     # caddy
-    sudo firewall-cmd --zone=drop --add-port=443/tcp    # caddy
+    sudo firewall-cmd --zone=drop --add-port=80/tcp     # pi-hole admin
+    sudo firewall-cmd --zone=drop --add-port=443/tcp    # pi-hole admin
     sudo firewall-cmd --runtime-to-permanent
     sudo firewall-cmd --state
     sudo firewall-cmd --get-default-zone

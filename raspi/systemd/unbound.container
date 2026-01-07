@@ -1,12 +1,15 @@
 [Unit]
 Description=Unbound DNS Container
-After=network-online.target
+
+[Quadlet]
+DefaultDependencies=false
 
 [Container]
 Image=my-unbound.build
-Network=dns.network:ip=192.168.40.2
+Network=host
 
 [Service]
+ExecStartPre=timeout 60s sh -c 'until ping -c1 192.168.50.1; do sleep 1; done;'
 Restart=always
 RestartSec=1s
 
