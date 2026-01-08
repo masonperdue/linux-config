@@ -38,64 +38,64 @@
         sudo rm /etc/motd         
         sudo reboot now
     # ssh raspi
-        rm ~/.bashrc
-        curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/raspi/bashrc
-        source ~/.bashrc
         sudo apt purge -y vim-common vim-tiny
         sudo apt autoremove --purge -y
-        sudo apt install -y vim tree sane-utils nmap unattended-upgrades dnsutils imagemagick
+        sudo apt install -y git neovim tree sane-utils nmap unattended-upgrades dnsutils imagemagick
         sudo dpkg-reconfigure unattended-upgrades
             # yes
-        ss -tuln
+        mkdir ~/.myconfig
+        cd ~/.myconfig
+        git clone https://github.com/masonperdue/linux-config.git
+        git clone https://github.com/masonperdue/neovim-config.git
+        cd linux-config
+        ./setup.sh
+        source ~/.bashrc
+        cu
+        cd neovim-config
+        ./setup.sh
 
-# Podman
-    sudo apt install -y podman crun
-    # unbound + pi-hole + dns network
-        podman pull debian:latest
-        podman images
-        mkdir ~/unbound
-        mv {Containerfile,custom.conf} ~/unbound/
-        podman build -t my-unbound .
-        mv custom.conf /etc/sysctl.d/custom.conf
-        sudo sysctl -p
-        # podman run -d --name unbound-dns -p 5335:5335/udp -p 5335:5335/tcp my-unbound
-        mkdir ~/.config/containers/systemd
-        mv {dns.network,pihole.container,unbound.container} ~/.config/containers/systemd
-        loginctl enable-linger masonp
-        systemctl --user daemon-reload
-        systemctl --user enable --now podman-auto-update.timer
-        # systemctl --user cat unbound
-        systemctl --user start pihole
-        # dig google.com @127.0.0.1#5335
-        sudoedit /etc/security/limits.conf
-            # add:
-            # masonp soft nice -20
-            # masonp hard nice -20
-   # Set raspi dns to cloudflare (so images can update w/o servers running)
-        nmcli connection show
-        sudo nmcli con mod netplan-eth0 ipv4.dns 1.1.1.1
-        sudo nmcli con mod netplan-eth0 ipv4.ignore-auto-dns yes
-        sudo nmcli con up netplan-eth0
-        nmcli dev show
-        dig startpage.com
+# Pi-hole
+    cd
+    git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
+    cd Pi-hole/"automated install"/
+    sudo bash basic-install.sh
+        # save password
+    # https://192.168.50.20/admin/login
 
-# Neovim
-    sudo apt install -y git neovim
-    mkdir ~/.myconfig
-    cd ~/.myconfig
-    git clone https://github.com/masonperdue/neovim-config.git
-    cd neovim-config
-    ./setup.sh
+# Unbound
+    sudo apt install -y unbound
+    unbound -V
+    sudo systemctl edit unbound.service
+        # [Service]
+        # ExecStartPre=timeout 60s sh -c 'until ping -c1 192.168.50.1; do sleep 1; done;'
+    sudo systemctl cat unbound.service
+    sudo systemctl daemon-reload
+    sudo touch /var/log/unbound.log
+    sudo chown unbound:unbound /var/log/unbound.log
+    sudo touch /etc/unbound/unbound.conf.d/custom.conf
+    sudoedit /etc/unbound/unboud.conf.d/custom.conf
+    unbound-checkconf /etc/unbound/unbound.conf.d/custom.conf
+    sudo systemctl restart unbound.service
+    # unbound -d -vv -c /etc/unbound/unbound.conf
+    sudo systemctl status unbound.service
+    dig google.com @127.0.0.1 -p 5335
+    dig fail01.dnssec.works @127.0.0.1 -p 5335
+    dig +ad dnssec.works @127.0.0.1 -p 5335
+    ss -tuln
+
+# Set raspi dns to cloudflare (so software can update w/o servers running)
+    nmcli connection show
+    sudo nmcli con mod netplan-eth0 ipv4.dns 1.1.1.1
+    sudo nmcli con mod netplan-eth0 ipv4.ignore-auto-dns yes
+    sudo nmcli con up netplan-eth0
+    nmcli dev show
+    dig startpage.com
 
 # Firewalld
     sudo apt install -y firewalld
     sudo systemctl status firewalld.service
     sudo firewall-cmd --set-default-zone drop
-    sudo firewall-cmd --zone=drop --add-port=7583/tcp   # ssh
-    sudo firewall-cmd --zone=drop --add-port=53/tcp     # pi-hole dns
-    sudo firewall-cmd --zone=drop --add-port=53/udp     # pi-hole dns
-    sudo firewall-cmd --zone=drop --add-port=80/tcp     # pi-hole admin
-    sudo firewall-cmd --zone=drop --add-port=443/tcp    # pi-hole admin
+    sudo firewall-cmd --zone=drop --add-port=7583/tcp --add-port=53/tcp --add-port=53/udp --add-port=80/tcp --add-port-443/tcp
     sudo firewall-cmd --runtime-to-permanent
     sudo firewall-cmd --state
     sudo firewall-cmd --get-default-zone
