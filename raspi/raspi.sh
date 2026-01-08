@@ -11,7 +11,7 @@
     # Username: masonp
     # SSH w/ Pubkey Auth
     # MAC IP Binded in Router to 192.168.50.20
-    # ssh masonp@192.168.50.20
+    # ssh masonp@192.168.50.20 -i ~/.ssh/id_ed25519-Raspi
         sudo apt update -y
         sudo apt full-upgrade -y
         sudo apt autoremove --purge -y
@@ -20,7 +20,7 @@
             # expand filesystem
             # update
         sudo reboot now
-    # ssh masonp@192.168.50.20
+    # ssh masonp@192.168.50.20 -i ~/.ssh/id_ed25519-Raspi
         sudo rm /etc/sudoers.d/010_pi-nopasswd
         sudoedit /etc/ssh/sshd_config
             # change to "Port 7583"
@@ -37,7 +37,7 @@
         sudo systemctl mask avahi-daemon.socket
         sudo rm /etc/motd         
         sudo reboot now
-    # ssh masonp@192.168.50.20 -p 7583
+    # ssh raspi
         rm ~/.bashrc
         curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/raspi/bashrc
         source ~/.bashrc
