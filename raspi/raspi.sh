@@ -47,7 +47,7 @@
         cd ~/.myconfig
         git clone https://github.com/masonperdue/linux-config.git
         git clone https://github.com/masonperdue/neovim-config.git
-        cd linux-config
+        cd linux-config/raspi
         ./setup.sh
         source ~/.bashrc
         cu
@@ -62,7 +62,7 @@
         # save password
     # https://192.168.50.20/admin/login
     sudo usermod -aG pihole masonp
-    # run "pihole -up" to update 
+    # run "sudo pihole -up" to update 
 
 # Unbound
     sudo apt install -y unbound

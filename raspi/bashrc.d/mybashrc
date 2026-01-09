@@ -1,19 +1,5 @@
 # ~/.bashrc
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
-# BASH Setup
-HISTCONTROL=ignoreboth
-shopt -s histappend
-HISTSIZE=1000
-HISTFILESIZE=2000
-shopt -s checkwinsize
-shopt -s autocd
-
 # Change Bash Prompt - https://bash-prompt-generator.org/
 PROMPT_COMMAND='
   GIT_BRANCH=$(git branch --show-current 2>/dev/null)
@@ -30,10 +16,10 @@ PROMPT_COMMAND='
 PS1='\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m\]\$\[\e[0m\] '
 
 # Variables
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Aliases
-alias editBash="vim ~/.bashrc"
+alias editBash="nvim ~/.bashrc"
 alias ls='ls --color=auto'
 alias ll='ls -lA'
 alias la='ls -A'
@@ -50,23 +36,12 @@ alias mkdir='mkdir -p'
 alias tree='tree -alC --dirsfirst'
 
 # Functions
-updateDebian(){
+updateRaspi(){
         echo ""
         echo "Updating Packages"
         sudo apt update -y
         sudo apt full-upgrade -y
         sudo apt autoremove -y --purge
-
-        # echo ""
-        # echo "Updating Bashrc"
-        # cd
-        # rm -rf ~/.bashrc
-        # curl --output ~/.bashrc https://raw.githubusercontent.com/masonperdue/linux-config/refs/heads/main/raspi/bashr
-
-        # echo ""
-        # echo "Sourcing ~/.bashrc"
-        # source ~/.bashrc
-
         echo ""
 }
 
@@ -94,12 +69,3 @@ docScan(){
                 echo "Error: Input file name"
         fi
 }
-
-# Completion
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
