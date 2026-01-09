@@ -58,13 +58,13 @@ docScan(){
                 cd ~/scan
                 mkdir tmp
                 cd tmp
-                sudo scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
+                scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
                 # sudoedit /etc/ImageMagick*/policy.xml # change none to read|write for pdf and change memory to 4GiB
                 convert out*.pnm -deskew 40% -density 150 -verbose $1.pdf
                 mv $1.pdf ../
-                sudo rm *.pnm
+                rm *.pnm
                 cd ..
-                sudo rmdir tmp
+                rmdir tmp
                 cd ..
         else
                 echo "Error: Input file name"

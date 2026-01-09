@@ -53,6 +53,7 @@
         cu
         cd neovim-config
         ./setup.sh
+        usermod -aG scanner masonp
 
 # Pi-hole
     cd
