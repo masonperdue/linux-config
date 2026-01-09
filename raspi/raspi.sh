@@ -61,6 +61,8 @@
     sudo bash basic-install.sh
         # save password
     # https://192.168.50.20/admin/login
+    sudo usermod -aG pihole masonp
+    # run "pihole -up" to update 
 
 # Unbound
     sudo apt install -y unbound
