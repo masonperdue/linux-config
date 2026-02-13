@@ -54,7 +54,7 @@ setupDebian(){
                 sudo apt upgrade -y
                 sudo apt remove --purge -y vim-common vim-tiny
                 sudo apt autoremove --purge -y
-                sudo apt install -y curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client dnsutils # gcc gdb gnugo gnuchess default-jdk octave
+                sudo apt install -y curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client dnsutils latexmk # gcc gdb gnugo gnuchess default-jdk octave
                 # curl -fsSL https://install.julialang.org | sh
 
                 echo ""
@@ -161,13 +161,7 @@ updateDebian(){
         sudo apt update -y
         sudo apt upgrade -y
         sudo apt autoremove -y --purge
-
-        echo ""
-        echo "Linking Bashrc"
-        cd
-        rm -rf ~/.bashrc ~/linux-config
-        git clone https://github.com/masonperdue/linux-config.git
-        ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
+        sudo apt autoclean
 
         echo ""
         echo "Sourcing ~/.bashrc"
@@ -182,6 +176,7 @@ updateWSL(){
         sudo apt update -y
         sudo apt upgrade -y
         sudo apt autoremove -y --purge
+        sudo apt autoclean
 
         echo ""
         echo "Sourcing ~/.bashrc"
@@ -211,19 +206,19 @@ myNmap(){
 #       done
 # }
 
-# lexe(){
-#       if [ -n "$1" ]; then
-#               if [ "$1" == "c" ]; then
-#                       latexmk -c
-#               elif [ "$1" == "C" ]; then
-#                       latexmk -C
-#               else
-#                       latexmk --auxdir=aux --pvc --pdf --view=none "$1"
-#               fi
-#       else
-#               echo "Error: Input file name"
-#       fi
-# }
+lexe(){
+      if [ -n "$1" ]; then
+              if [ "$1" == "c" ]; then
+                      latexmk -c
+              elif [ "$1" == "C" ]; then
+                      latexmk -C
+              else
+                      latexmk --auxdir=aux --pvc --lualatex "$1"
+              fi
+      else
+              echo "Error: Input file name"
+      fi
+}
 
 gitClone(){
     if [ -n "$1" ]; then

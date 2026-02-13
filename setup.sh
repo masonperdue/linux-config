@@ -11,3 +11,5 @@ echo ". /home/masonp/.bashrc.d/*" >> /home/masonp/.bashrc
 mkdir /home/masonp/.bashrc.d
 ln -sf /home/masonp/.myconfig/linux-config/bashrc.d/* /home/masonp/.bashrc.d/
 echo "source /home/masonp/.bashrc"
+
+ln -sf /home/masonp/.myconfig/linux-config/.latexmkrc /home/masonp/.latexmkrc
