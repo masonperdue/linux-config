@@ -97,15 +97,8 @@ setupDebian(){
                 sudo apt upgrade
                 sudo apt remove --purge vim-common vim-tiny
                 sudo apt autoremove --purge
-                sudo apt install vim rsync git htop tree imagemagick libimage-exiftool-perl nmap ffmpeg firewalld # curl usbutils man-db openssh-client bash-completion
+                sudo apt install htop tree firewalld
                 echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
-
-                echo "Linking Bashrc"
-                cd
-                git clone https://github.com/masonperdue/linux-config.git
-                rm ~/.bashrc
-                ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
-                source ~/.bashrc
         fi
 
         echo ""
