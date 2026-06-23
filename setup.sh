@@ -100,6 +100,8 @@ elif [ "$input" == "kitcom" ] || [ "$input" == "surface" ]; then
         echo "Exec=google-chrome --start-maximized" >> ~/.config/autostart/chrome.desktop
         echo "Terminal=false" >> ~/.config/autostart/chrome.desktop
         echo "Hidden=false" >> ~/.config/autostart/chrome.desktop
+        sudo systemctl disable keyboard-setup.service
+        sudo systemctl disable console-setup.service
 fi
 
 echo ""
