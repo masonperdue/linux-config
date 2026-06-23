@@ -11,7 +11,12 @@
 
 # Toshiba
     # BIOS Key: F2
-
+    cat /proc/cmdline
+        # Copy contents
+    sudoedit /etc/kernel/cmdline
+        # Paste contents plus mem_sleep_default=s2idle
+    sudo dpkg-reconfigure linux-image-$(uname -r)
+    
 # standard system utilities
 # No Root
 # kitcom/surface
