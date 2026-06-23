@@ -9,6 +9,9 @@
     # Plug in bootable USB
     # Exit > Restart now
 
+# Toshiba
+    # BIOS Key: F2
+
 # standard system utilities
 # No Root
 # kitcom/surface
