@@ -20,7 +20,7 @@ PS1='\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m
 export EDITOR='nvim'
 
 # Aliases
-alias editBash="vim ~/linux-config/dot-bashrc"
+alias editBash="vi ~/.myconfig/linux-config/bashrc.d/mybashrc"
 alias ls='ls --color=auto'
 alias ll='ls -lA'
 alias la='ls -A'
@@ -39,115 +39,10 @@ alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.
 alias countFiles='ls -1A | wc -l'
 alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=out.pdf *'
 alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
-# alias jrnl='~/vim-journal/jrnl.sh'
-# alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+alias jrnl='~/vim-journal/jrnl.sh'
+alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
 
 # Functions
-setupDebian(){
-        echo ""
-        echo "Updating and Installing Packages"
-        echo "Computer Name (wsl/kitcom/surface): "
-        read input
-        if [ "$input" == "wsl" ]; then
-                echo "Installing Packages for WSL"
-                sudo apt update -y
-                sudo apt upgrade -y
-                sudo apt remove --purge -y vim-common vim-tiny
-                sudo apt autoremove --purge -y
-                sudo apt install -y curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades texlive-full openssh-client dnsutils latexmk # gcc gdb gnugo gnuchess default-jdk octave
-                # curl -fsSL https://install.julialang.org | sh
-
-                echo ""
-                echo "Configuring Git"
-                # echo "Configure Git w/ SSH (y/n): "
-                # read input
-                # if [ "$input" == "y" ]; then
-                        # echo "Using: /home/$USER/.ssh/id_ed25519.pub"
-                        # echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+masonperdue@users.noreply.github.com' or 'gpg --full-generate-key' (4 then 4096) and 'gpg --list-secret-keys' and 'gpg --armor --export [ID]' and 'git config --global user.signingkey [id]' and add 'pinentry-program "/mnt/c/Program Files/Git/usr/bin/pinentry.exe"' to '~/.gnupg/gpg-agent.conf'"
-                        # sudo chmod 700 ~/.ssh/id*
-                        git config --global user.name masonperdue
-                        git config --global user.email 220426478+masonperdue@users.noreply.github.com
-                        # git config --global user.signingkey /home/$USER/.ssh/id_ed25519.pub
-                        git config --global core.editor vim
-                        git config --global init.defaultBranch main
-                        git config --global commit.gpgsign true
-                        # git config --global gpg.format ssh
-                        # echo "Linking Bashrc"
-                        # cd
-                        # git clone git@github.com:masonperdue/linux-config.git
-                        # rm ~/.bashrc
-                        # ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
-                        # source ~/.bashrc
-                # elif [ "$input" == "n" ]; then
-                #       cd
-                #       git clone https://github.com/masonperdue/linux-config.git
-                #       rm ~/.bashrc
-                #       ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
-                #       source ~/.bashrc
-                # fi
-                # ssh -T git@github.com
-                # git remote add origin git@github.com:masonperdue/repo.git
-                # git pull origin main
-                # git init
-                # git log
-                # git diff
-        elif [ "$input" == "kitcom" ] || [ "$input" == "surface" ]; then
-                echo "Installing Packages for KitCom or Surface"
-                sudo apt update
-                sudo apt upgrade
-                sudo apt remove --purge vim-common vim-tiny
-                sudo apt autoremove --purge
-                sudo apt install htop tree firewalld
-                echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
-        fi
-
-        echo ""
-        echo "Configure Firewall (y/n): "
-        read input
-        if [ "$input" == "y" ]; then
-                echo "Configuring Firewall"
-                sudo systemctl enable --now firewalld.service
-                sudo systemctl status firewalld.service
-                sudo firewall-cmd --set-default-zone drop
-                sudo firewall-cmd --state
-                sudo firewall-cmd --get-default-zone
-                sudo firewall-cmd --get-active-zones
-                sudo firewall-cmd --list-all
-        echo ""
-        fi
-
-        # echo ""
-        # echo "Configure Vim-Journal (y/n): "
-        # read input
-        # if [ "$input" == "y" ]; then
-        #       echo "Configuring Vim-Journal"
-        #       cd
-        #       git clone git@github.com:masonperdue/vim-journal.git
-        #       chmod +x ~/vim-journal/jrnl.sh
-        # fi
-
-        # echo ""
-        # echo "Configure Latexmk (y/n): "
-        # read input
-        # if [ "$input" == "y" ]; then
-        #       echo "Configuring Latexmk"
-        #       sudo apt install -y evince
-        #       touch ~/.latexmk
-        #       echo '$pdf_previewer = "start evince";' > ~/.latexmk
-        # fi
-
-        # echo ""
-        # echo "Install Openssh Server (y/n): "
-        # read input
-        # if [ "$input" == "y" ]; then
-        #       echo "Installing Openssh Server"
-        #       sudo apt install -y openssh-server
-        #       echo "Run: sudoedit /etc/ssh/sshd.config"
-        #       echo "Set: Port 7530"
-        #       echo "Set: PermitRootLogin no"
-        # fi
-}
-
 updateDebian(){
         echo ""
         echo "Updating Packages"
@@ -158,6 +53,8 @@ updateDebian(){
 
         echo ""
         echo "Sourcing ~/.bashrc"
+        cd ~/.myconfig/linux-config
+        git pull
         source ~/.bashrc
 
         echo ""
@@ -183,21 +80,21 @@ myNmap(){
         nmap -v -A -Pn -p 1-65535 "$1"
 }
 
-# mov2mp4(){
-#       for f in *.MOV; do
-#               ffmpeg -i $f $f.mp4
-#       done
-#       rename ".MOV.mp4" ".mp4" *
-#       rm *.MOV
-# }
+mov2mp4(){
+      for f in *.MOV; do
+              ffmpeg -i $f $f.mp4
+      done
+      rename ".MOV.mp4" ".mp4" *
+      rm *.MOV
+}
 
-# folderMusic(){
-#       rename -av "/" "" *
-#       for f in *; do
-#               mkdir "${f%%-*}"
-#               mv $f "${f%%-*}"/
-#       done
-# }
+folderMusic(){
+      rename -av "/" "" *
+      for f in *; do
+              mkdir "${f%%-*}"
+              mv $f "${f%%-*}"/
+      done
+}
 
 lexe(){
       if [ -n "$1" ]; then
@@ -213,6 +110,7 @@ lexe(){
       fi
 }
 
+# Git commands
 gitClone(){
     if [ -n "$1" ]; then
         git clone git@github.com:masonperdue/"$1".git
