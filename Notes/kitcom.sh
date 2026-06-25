@@ -11,12 +11,23 @@
 
 # Toshiba
     # BIOS Key: F2
-    cat /proc/cmdline
-        # Copy contents
-    sudoedit /etc/kernel/cmdline
-        # Paste contents plus mem_sleep_default=s2idle
-    sudo dpkg-reconfigure linux-image-$(uname -r)
-    
+    # Set sleep mode
+        cat /proc/cmdline
+            # Copy contents
+        sudoedit /etc/kernel/cmdline
+            # Paste contents plus mem_sleep_default=s2idle
+        sudo dpkg-reconfigure linux-image-$(uname -r)
+    # Disable input devices
+        grep -E 'Name=|Handlers=' /proc/bus/input/devices
+        sudoedit /etc/udev/rules.d/99-disable-internal-input.rules
+            # add in names from grep command
+            # Disable internal touchscreen
+            SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="*ELAN9008:00 04F3:2A00 Touchscreen*", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+
+            # Disable internal touchpad
+            SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="*SynPS/2 Synaptics TouchPad*", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+        sudo udevadm control --reload-rules && sudo udevadm trigger
+
 # standard system utilities
 # No Root
 # kitcom/surface
