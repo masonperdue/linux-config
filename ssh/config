@@ -2,4 +2,4 @@ Host raspi
     HostName 192.168.50.20
     User masonp
     Port 7583
-    IdentityFile ~/.ssh/id_ed25519-Raspi
+    IdentityFile ~/.ssh/id_ed25519-raspi
