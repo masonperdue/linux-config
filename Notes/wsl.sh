@@ -8,11 +8,12 @@ wsl --list --online
 wsl --install Debian
     # username: masonp
     # password: -----
-sudo apt edit-sources
-    # remove backports
-    # add "contrib non-free non-free-firmware" to end of other lines
 sudo apt update
 sudo apt upgrade -y
+# sudo apt edit-sources
+sudoedit /etc/apt/sources.list.d/0000debian.sources
+    # remove backports
+    # add "contrib non-free non-free-firmware" to end of other lines
 # sudo apt purge -y ...
 sudo apt autoremove --purge -y
 sudo apt install -y git neovim
