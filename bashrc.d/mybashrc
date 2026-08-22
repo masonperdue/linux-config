@@ -104,7 +104,7 @@ lexe(){
               elif [ "$1" == "C" ]; then
                       latexmk -C
               else
-                      latexmk --auxdir=aux --pvc --lualatex "$1"
+                      latexmk --auxdir=aux --pvc --pdflatex "$1"
               fi
       else
               echo "Error: Input file name"
