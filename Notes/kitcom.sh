@@ -31,10 +31,10 @@
 # standard system utilities
 # No Root
 # kitcom/surface
-# domain name: debian.local
+# domain name: masonperdue.com
 # Family
 # family
-# encrypted LVM
+# encrypted LVM - NO
 
 sudo apt update
 sudo apt install -y git
