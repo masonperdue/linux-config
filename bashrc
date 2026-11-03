@@ -1,0 +1,140 @@
+# BASH Setup
+shopt -s autocd
+
+# Change Bash Prompt - https://bash-prompt-generator.org/
+PROMPT_COMMAND='
+  GIT_BRANCH=$(git branch --show-current 2>/dev/null)
+  GIT_STATUS=$(git status --short 2>/dev/null)
+  if [ -n "$GIT_BRANCH" ]; then
+        if [ -n "$GIT_STATUS" ]; then
+                PS1_GIT_INFO=$(printf "%b" "(\e[91m${GIT_BRANCH}\e[0m)\n\e[91m${GIT_STATUS}")
+        else
+                PS1_GIT_INFO=$(printf "%b" "(\e[91m${GIT_BRANCH}\e[0m)")
+        fi
+  else
+    PS1_GIT_INFO=""
+  fi'
+PS1='\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m\]\$\[\e[0m\] '
+
+# Variables
+export EDITOR='nvim'
+
+# Aliases
+alias editBash="vi ~/.myconfig/linux-config/bashrc.d/mybashrc"
+alias ls='ls --color=auto'
+alias ll='ls -lA'
+alias la='ls -A'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ip='ip -c'
+alias cp='cp -r'
+alias cu='cd ..'
+alias cb='cd -'
+alias mkdir='mkdir -p'
+alias tree='tree -lC --dirsfirst'
+alias trea='tree -alC --dirsfirst'
+alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
+alias countFiles='ls -1A | wc -l'
+alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=out.pdf *'
+alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
+alias jrnl='~/vim-journal/jrnl.sh'
+alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+
+# Functions
+updateDebian(){
+        echo ""
+        echo "Updating Packages"
+        sudo apt update -y
+        sudo apt upgrade -y
+        sudo apt autoremove -y --purge
+        sudo apt autoclean
+
+        echo ""
+        echo "Sourcing ~/.bashrc"
+        cd ~/.myconfig/linux-config
+        git pull
+        source ~/.bashrc
+
+        echo ""
+}
+
+updateWSL(){
+        echo ""
+        echo "Updating Packages"
+        sudo apt update -y
+        sudo apt upgrade -y
+        sudo apt autoremove -y --purge
+        sudo apt autoclean
+
+        echo ""
+        echo "Sourcing ~/.bashrc"
+        source ~/.bashrc
+
+        echo ""
+}
+
+myNmap(){
+        # first argument should be target ip addr
+        nmap -v -A -Pn -p 1-65535 "$1"
+}
+
+mov2mp4(){
+      for f in *.MOV; do
+              ffmpeg -i $f $f.mp4
+      done
+      rename ".MOV.mp4" ".mp4" *
+      rm *.MOV
+}
+
+folderMusic(){
+      rename -av "/" "" *
+      for f in *; do
+              mkdir "${f%%-*}"
+              mv $f "${f%%-*}"/
+      done
+}
+
+lexe(){
+      if [ -n "$1" ]; then
+              if [ "$1" == "c" ]; then
+                      latexmk -c
+              elif [ "$1" == "C" ]; then
+                      latexmk -C
+              else
+                      latexmk --auxdir=aux --pvc --pdflatex "$1"
+              fi
+      else
+              echo "Error: Input file name"
+      fi
+}
+
+# Git commands
+gitClone(){
+    if [ -n "$1" ]; then
+        git clone git@github.com:masonperdue/"$1".git
+    else
+        echo "Error: Input Repository Name"
+    fi
+}
+
+gitPush(){
+        if [ -n "$1" ]; then
+                git add --all
+                git commit -m "$1"
+                git push origin main
+        else
+                echo "Error: Input Commit Message"
+        fi
+}
+
+gitCommit(){
+        if [ -n "$1" ]; then
+                git add --all
+                git commit -m "$1"
+        else
+                echo "Error: Input Commit Message"
+        fi
+}
