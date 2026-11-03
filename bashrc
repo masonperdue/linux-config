@@ -20,7 +20,7 @@ PS1='\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m
 export EDITOR='nvim'
 
 # Aliases
-alias editBash="vi ~/.myconfig/linux-config/bashrc.d/mybashrc"
+alias editBash="nvim /home/$USER/linux-config/bashrc"
 alias ls='ls --color=auto'
 alias ll='ls -lA'
 alias la='ls -A'
@@ -36,12 +36,11 @@ alias cb='cd -'
 alias mkdir='mkdir -p'
 alias tree='tree -lC --dirsfirst'
 alias trea='tree -alC --dirsfirst'
-alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
 alias countFiles='ls -1A | wc -l'
 alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=out.pdf *'
-alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
-alias jrnl='~/vim-journal/jrnl.sh'
+alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
 alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+# alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
 
 # Functions
 updateDebian(){
@@ -54,23 +53,8 @@ updateDebian(){
 
         echo ""
         echo "Sourcing ~/.bashrc"
-        cd ~/.myconfig/linux-config
+        cd ~/linux-config
         git pull
-        source ~/.bashrc
-
-        echo ""
-}
-
-updateWSL(){
-        echo ""
-        echo "Updating Packages"
-        sudo apt update -y
-        sudo apt upgrade -y
-        sudo apt autoremove -y --purge
-        sudo apt autoclean
-
-        echo ""
-        echo "Sourcing ~/.bashrc"
         source ~/.bashrc
 
         echo ""
