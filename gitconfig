@@ -1,14 +1,17 @@
 [user]
 	name = masonperdue
 	email = 220426478+masonperdue@users.noreply.github.com
-	signingkey = /home/mason/.ssh/id_ed25519-GitHub.pub
+	signingkey = /home/mason/.ssh/id_ed25519-GitHub
 [core]
 	editor = nvim
+	sshCommand = ssh.exe
 [init]
 	defaultBranch = main
 [commit]
-	gpgSign = true
+	gpgsign = true
 [tag]
 	gpgSign = true
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	program = ssh-keygen.exe
