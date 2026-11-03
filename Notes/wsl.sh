@@ -8,7 +8,7 @@
 	# wsl --list --online
 	wsl --install Debian
 	masonp # change to mason
-		[pw]
+		# [pw]
 
 # APT
 	sudo apt update
