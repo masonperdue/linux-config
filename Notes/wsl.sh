@@ -26,11 +26,6 @@
 	echo "" >> ~/.bashrc
 	echo "source /home/mason/linux-config/bashrc" >> ~/.bashrc
 	
-# Neovim
-	cd
-	gitClone neovim-config
-	./neovim-config/setup.sh
-
 # Git
 	nvim ~/.ssh/id_ed25519-GitHub.pub
 		# Past public key
@@ -39,3 +34,8 @@
 
 # LatekMk
 	ln -sf /home/mason/linux-config/latexmkrc /home/mason/.latexmkrc
+
+# Neovim
+	cd
+	gitClone neovim-config
+	./neovim-config/setup.sh
