@@ -27,9 +27,11 @@
 	echo "source /home/mason/linux-config/bashrc" >> ~/.bashrc
 	
 # Git
-	nvim ~/.ssh/id_ed25519-GitHub.pub
+	nano ~/.ssh/id_ed25519-GitHub
+		# past private key
+	nano ~/.ssh/id_ed25519-GitHub.pub
 		# Past public key
-	chmod 600 ~/.ssh/id_ed25519-GitHub.pub
+	chmod 600 ~/.ssh/id_ed25519-GitHub*
 	ln -sf /home/mason/linux-config/gitconfig /home/mason/.gitconfig
 
 # LatekMk
@@ -37,5 +39,6 @@
 
 # Neovim
 	cd
+	gitKey
 	gitClone neovim-config
 	./neovim-config/setup.sh
