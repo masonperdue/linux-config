@@ -7,7 +7,7 @@
 	# wsl --update
 	# wsl --list --online
 	wsl --install Debian
-	masonp # change to mason
+		# mason
 		# [pw]
 
 # APT
@@ -23,7 +23,7 @@
 
 # BASH
 	echo "" >> ~/.bashrc
-	echo "source /home/masonp/linux-config/bashrc" >> ~/.bashrc
+	echo "source /home/mason/linux-config/bashrc" >> ~/.bashrc
 	
 # Neovim
 	cd
@@ -34,7 +34,7 @@
 	nvim ~/.ssh/id_ed25519-GitHub.pub
 		# Past public key
 	chmod 600 ~/.ssh/id_ed25519-GitHub.pub
-	ln -sf /home/masonp/linux-config/gitconfig /home/masonp/.gitconfig
+	ln -sf /home/mason/linux-config/gitconfig /home/mason/.gitconfig
 
 # LatekMk
-	ln -sf /home/masonp/linux-config/latexmkrc /home/masonp/.latexmkrc
+	ln -sf /home/mason/linux-config/latexmkrc /home/mason/.latexmkrc
