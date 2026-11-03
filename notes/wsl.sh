@@ -20,6 +20,11 @@
 	# curl -fsSL https://install.julialang.org | sh
 	# sudo apt autoremove --purge -y
 
+# Sudo
+    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$USER-nopasswd
+    sudo chmod 440 /etc/sudoers.d/$USER-nopasswd
+    sudo visudo -c
+
 # BASH
 	cd
 	git clone https://github.com/masonperdue/linux-config.git
