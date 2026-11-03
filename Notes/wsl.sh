@@ -16,7 +16,7 @@
 	    # remove backports
 	sudo apt update
 	sudo apt upgrade -y
-	sudo apt install -y texlive-full evince git # nmap bind9-dnsutils htop curl man-db tree libimage-exiftool-perl ffmpeg gcc gdb default-jdk octave
+	sudo apt install -y texlive-full evince git nmap bind9-dnsutils htop curl man-db tree libimage-exiftool-perl ffmpeg gcc gdb # default-jdk octave
 	# curl -fsSL https://install.julialang.org | sh
 	# sudo apt autoremove --purge -y
 
