@@ -22,7 +22,8 @@
 	# curl -fsSL https://install.julialang.org | sh
 
 # BASH
-	ln -sf /home/masonp/linux-config/bashrc /home/masonp/.gitconfig
+	echo "" >> ~/.bashrc
+	echo "source /home/masonp/linux-config/bashrc" >> ~/.bashrc
 	
 # Neovim
 	cd
