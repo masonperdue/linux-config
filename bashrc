@@ -56,6 +56,7 @@ updateDebian(){
         cd ~/linux-config
         git pull
         source ~/.bashrc
+        cd -
 
         echo ""
 }
