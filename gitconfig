@@ -1,7 +1,7 @@
 [user]
 	name = masonperdue
 	email = 220426478+masonperdue@users.noreply.github.com
-	signingkey = /home/mason/.ssh/id_ed25519-GitHub
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILA8FEFyIwYSPun8UZloaOv5wGW4hIhcqzWsKTsvFpkS GitHub (WSL)
 [core]
 	editor = nvim
 	sshCommand = ssh.exe
