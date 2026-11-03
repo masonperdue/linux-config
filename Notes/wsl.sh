@@ -14,7 +14,6 @@
 	sudo apt update
 	sudoedit /etc/apt/sources.list.d/0000debian.sources
 	    # remove backports
-	    # add "contrib non-free non-free-firmware" to end of other lines
 	sudo apt update
 	sudo apt autoremove --purge -y
 	sudo apt upgrade -y
