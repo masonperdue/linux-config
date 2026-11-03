@@ -40,7 +40,7 @@ alias countFiles='ls -1A | wc -l'
 alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=out.pdf *'
 alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
 alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
-alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
+alias gitKey='pkill ssh-agent && eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519-GitHub'
 
 # Functions
 updateDebian(){
