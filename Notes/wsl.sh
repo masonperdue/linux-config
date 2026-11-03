@@ -14,7 +14,12 @@ git clone https://github.com/masonperdue/neovim-config.git
 ./neovim-config/setup.sh
 latexmk -lualatex -auxdir=auxdir -pvc main.tex
 
-
+sudo apt install -y git bind9-dnsutils htop
+	git clone git@github.com:masonerdue/neovim-config.git
+	./neovim-config/setup.sh
+    nvim ~/.ssh/id_ed25519-GitHub.pub
+		# Past public key
+    chmod 600 ~/.ssh/id_ed25519-GitHub.pub
 
 wsl --shutdown
 wsl --unregister Debian
