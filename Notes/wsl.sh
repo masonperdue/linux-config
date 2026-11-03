@@ -21,12 +21,14 @@
 	# sudo apt autoremove --purge -y
 
 # BASH
+	cd
+	git clone https://github.com/masonperdue/linux-config.git
 	echo "" >> ~/.bashrc
 	echo "source /home/mason/linux-config/bashrc" >> ~/.bashrc
 	
 # Neovim
 	cd
-	git clone https://github.com/masonperdue/neovim-config.git
+	gitClone neovim-config
 	./neovim-config/setup.sh
 
 # Git
