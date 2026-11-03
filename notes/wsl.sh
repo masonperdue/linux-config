@@ -27,18 +27,20 @@
 	echo "source /home/mason/linux-config/bashrc" >> ~/.bashrc
 	
 # Git
-	nano ~/.ssh/id_ed25519-GitHub
-		# past private key
-	nano ~/.ssh/id_ed25519-GitHub.pub
-		# Past public key
-	chmod 600 ~/.ssh/id_ed25519-GitHub*
+    ssh-keygen -t ed25519 -C '220426478+masonperdue@users.noreply.github.com'
+        # id_ed25519-GitHub
+    cat ~/.ssh/id_ed25519-GitHub
+        # add to GitHub as auth and signing key
 	ln -sf /home/mason/linux-config/gitconfig /home/mason/.gitconfig
+    gitKey
+    ssh -T git@github.com
+    cd
+    rm -rf linux-config
+    gitClone linux-config
 
 # LatekMk
 	ln -sf /home/mason/linux-config/latexmkrc /home/mason/.latexmkrc
 
 # Neovim
-	cd
-	gitKey
 	gitClone neovim-config
 	./neovim-config/setup.sh
