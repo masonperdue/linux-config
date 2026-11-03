@@ -32,13 +32,7 @@
 	echo "source /home/mason/linux-config/bashrc" >> ~/.bashrc
 	
 # Git
-    ssh-keygen -t ed25519 -C '220426478+masonperdue@users.noreply.github.com'
-        # id_ed25519-GitHub
-    cat ~/.ssh/id_ed25519-GitHub
-        # add to GitHub as auth and signing key
 	ln -sf /home/mason/linux-config/gitconfig /home/mason/.gitconfig
-    gitKey
-    ssh -T git@github.com
     cd
     rm -rf linux-config
     gitClone linux-config
